@@ -1,0 +1,69 @@
+<html>
+    <head></head>
+    <body onload="afficherCookie();">
+        <form name="myForm">
+            
+           Nom d'utilisateur <input type="text" name="txtUserName"><br><br>
+           Type d'employe<input type="text" name="txtTypeEmploye"><br><br>
+           Mot de passe<input type="password" name="txtPasword"><br><br>
+           <input type="button" value="Connexion" onclick="connecter();">
+            
+        </form>
+        
+        <script>
+            
+             function setCookie(name,value,expires,path,domain,secure){
+        document.cookie=name+"="+escape(value)+
+        ((expires==undefined)? "": (";expires="+expires.toGMTString()) )+
+        ( (path ==undefined)?"":(";path="+path))+((domain==undefined)?"":
+        (";domain="+domain))+( (secure==true)?";secure": "");
+      
+      }
+      
+      function getCookie(name){
+       if(document.cookie.length==0){
+        return null;
+       }
+       
+       var regCookies=new RegExp("(;)","g");
+       var cookies=document.cookie.split(regCookies);
+       for (var i=0;i<cookies.length;i++){
+        var regInfo= new RegExp("=","g");
+        var infos=cookies[i].split(regInfo);
+        if(infos[0]==name){
+         return unescape(infos[1]);
+        }
+       }
+       return null;
+      }
+            
+      function afficherCookie() {
+        var valeurCookie=getCookie("userConnexion");
+        if(valeurCookie !=null){
+            var tab=valeurCookie.split("+");
+            myForm.txtUserName.value=tab[0];
+            myForm.txtTypeEmploye.value=tab[1];
+        }
+        }     
+            
+            function connecter(){
+                
+                var valeurCookie=getCookie("userConnexion");
+                if(valeurCookie==null){
+                    var dateExpiration= new Date();
+                    dateExpiration.setTime(dateExpiration.getTime()+5*36000*1000);
+                    var valeurFinal= myForm.txtUserName.value;
+                    valeurFinal+="+"+myForm.txtTypeEmploye.value;
+                    setCookie("userConnexion",valeurFinal,dateExpiration);
+                }
+            }
+            
+            
+            
+            
+            
+            
+            
+        </script>
+    </body>
+</html>

@@ -1,0 +1,33 @@
+<html>
+    <head>
+        <title> HTML5: WEB STORAGE</title>
+        <meta charset="utf-8">
+    </head>
+    <body>
+        <p>
+            vous  avez vu cette page
+            <span id="nb_visite">un nomb indétermine de</span>
+            fois
+        </p>
+        <script>
+            if(typeof(localStrage)=="undefined"){
+               alert("ce  navigateur ne supporte pas le web Storage"); 
+            }
+            else{
+                //valeur par defaut
+                if(!localStorage.visites) localStorage.setItem("visite","0");
+                //variable temporaie
+                var nb="";
+                //lecture
+                //parsint convertier le texte en entier
+                nb=parseInt(localStorage.getItem("visites"));
+                //incrémentationo du compteur;
+                nb++;
+                //MEMORISATION
+                localStorage.setItem("visites",nb);
+                //Affichage
+                document.getElementById("nb_visite").innerHTML=nb;
+            }
+        </script>
+    </body>
+</html>
